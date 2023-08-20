@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  web:
+    build:
+      context: ./NewWebAppProject
+      dockerfile: Dockerfile
+    ports:
+      - 8080:80
+    depends_on:
+      - db
+    networks:
+      - aspnetcoreapp-network
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_DB=your-database
+      - POSTGRES_USER=your-username
+      - POSTGRES_PASSWORD=your-password
+    networks:
+      - aspnetcoreapp-network
+networks:
+  aspnetcoreapp-network:
+    driver: bridge
